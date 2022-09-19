@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://code.createjs.com/1.0.0/createjs.min.js"></script>
+    <style>
+        canvas
+        {
+            width: 300px;
+            height: 300px;
+            border: 1px #000 solid;
+        }
+    </style>
+</head>
+<body>
+<canvas id="canvas"></canvas>
+</body>
+</html>
+
+<script>
+    async function drawCheckeredBackground(can, nRow, nCol) {
+        var ctx = can.getContext("2d");
+        var w = can.width;
+        var h = can.height;
+
+        nRow = nRow || 4;    // default number of rows
+        nCol = nCol || 4;    // default number of columns
+
+        w /= nCol;            // width of a block
+        h /= nRow;            // height of a block
+
+        for (var i = 0; i < nRow; i++) {
+            for (var j = 0; j < nCol; j++) {
+                //ctx.strokeRect(2 * j * w + (i % 2 ? 0 : w), i * h, w, h);
+                ctx.name = i+"_"+j;
+                ctx.strokeRect(i * w, j * h, w, h);
+            }
+        }
+
+        //ctx.fill();
+
+        ctx.fillStyle = 'red';
+        ctx.fillRect(w, h, w, h);
+
+
+
+        for (let i = 0; i < nRow; i++) {
+            for (let j = 0; j < nRow; j++) {
+                ctx.fillStyle = 'white';
+                ctx.fillRect(w * (i - 1), h * (j), w, h);
+
+                ctx.fillStyle = 'blue';
+                ctx.fillRect(w * i, h * j, w, h);
+
+                await new Promise(r => setTimeout(r, 1000));
+            }
+        }
+    }
+
+    var canvas = document.getElementById("canvas");
+
+    drawCheckeredBackground(canvas);
+</script>
