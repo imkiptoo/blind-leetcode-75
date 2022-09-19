@@ -21,7 +21,6 @@ public class WordLadder {
         buildGraphEdges(totalWordList, nodesGraph);
 
         return bfsShortestPath(nodesGraph.get(beginWord), nodesGraph.get(endWord), nodesGraph.size());
-
     }
 
     private int bfsShortestPath(GraphNode start, GraphNode end, int count) {
